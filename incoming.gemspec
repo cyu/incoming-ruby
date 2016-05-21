@@ -4,14 +4,15 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'incoming/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "incoming"
+  spec.name          = "incominghq"
   spec.version       = Incoming::VERSION
   spec.authors       = ["Calvin Yu"]
   spec.email         = ["me@sourcebender.com"]
 
   spec.summary       = %q{Interact with IncomingHQ service}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
+  spec.description   = %q{Interact with IncomingHQ service}
   spec.homepage      = "http://incominghq.com"
+  spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = "exe"
