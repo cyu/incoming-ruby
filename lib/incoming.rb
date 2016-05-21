@@ -1,5 +1,6 @@
 require "incoming/version"
+require 'apiture'
 
 module Incoming
-  # Your code goes here...
+  Client = Apiture.load_api(File.join(File.dirname(__FILE__), 'incominghq.yml'))
 end
