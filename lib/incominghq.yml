@@ -4,10 +4,10 @@
     title: Incoming
     version: "1.0"
 
-  host: api.incominghq.dev:1337
+  host: api.incominghq.com
   basePath: "/api/"
   schemes:
-    - http
+    - https
 
   produces:
     - application/json
@@ -24,7 +24,7 @@
       x-format: Bearer %s
 
   security:
-    authToken: []
+    - authToken: []
 
   paths:
     /sessions:
@@ -32,8 +32,126 @@
         summary: Create a new session
         operationId: createSession
         security:
-          emailAndPassword: []
+          - emailAndPassword: []
+        responses:
+          "200":
+            description: ""
       put:
         summary: Extend token expiration
         operationId: extendSession
-
+        responses:
+          "200":
+            description: ""
+    /inpoints:
+      get:
+        summary: List inpoints
+        operationId: getInpoints
+        security:
+          - authToken: []
+        responses:
+          "200":
+            description: ""
+    /inpoints/{name}:
+      get:
+        summary: Show inpoint
+        operationId: getInpoint
+        parameters:
+          - name: name
+            in: path
+            type: string
+            required: true
+        responses:
+          "200":
+            description: ""
+    /authentication_accounts:
+      get:
+        summary: List authentication accounts
+        operationId: getAuthenticationAccounts
+        responses:
+          "200":
+            description: ""
+    /instruction_sets:
+      get:
+        summary: List instruction sets
+        operationId: getInstructionSets
+        responses:
+          "200":
+            description: ""
+    /instruction_sets/{name}:
+      get:
+        summary: Show instruction set
+        operationId: getInstructionSet
+        parameters:
+          - name: name
+            in: path
+            type: string
+            required: true
+        responses:
+          "200":
+            description: ""
+      patch:
+        summary: Update instruction set
+        operationId: updateInstructionSet
+        parameters:
+          - name: name
+            in: path
+            type: String
+            required: true
+          - name: content
+            in: body
+            required: true
+            schema:
+              type: array
+              items:
+                type: object
+        responses:
+          "200":
+            description: ""
+    /instruction_sets/{instructionSet}/inputs:
+      post:
+        summary: Add an input to an instruction set
+        operationId: addInstructionSetInput
+        parameters:
+          - name: instructionSet
+            in: path
+            type: string
+            required: true
+          - name: input
+            in: body
+            required: true
+            schema:
+              $ref: "#/definitions/InstructionSetInput"
+        responses:
+          "200":
+            description: ""
+    /instruction_sets/{instructionSet}/inputs/{key}:
+      delete:
+        summary: Remove instruction set input
+        operationId: removeInstructionSetInput
+        parameters:
+          - name: instructionSet
+            in: path
+            type: string
+            required: true
+          - name: key 
+            in: path
+            type: string
+            required: true
+        responses:
+          "200":
+            description: ""
+  definitions:
+    InstructionSet:
+      type: object
+      properties:
+        content:
+          type: object
+    InstructionSetInput:
+      type: object
+      required:
+        - key
+      properties:
+        key:
+          type: string
+        default:
+          type: string
