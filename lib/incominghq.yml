@@ -63,6 +63,35 @@
         responses:
           "200":
             description: ""
+    /executions:
+      get:
+        summary: List executions
+        operationId: getInpointExecutions
+        parameters:
+          - name: inpoint
+            in: query
+            type: string
+          - name: state
+            in: query
+            type: string
+    /executions/{id}:
+      get:
+        summary: Get inpoint execution log
+        operationId: getInpointExecution
+        parameters:
+          - name: id
+            in: path
+            type: string
+            required: true
+    /executions/{id}/rerun:
+      post:
+        summary: Rerun inpoint execution
+        operationId: rerunInpointExecution
+        parameters:
+          - name: id
+            in: path
+            type: string
+            required: true
     /authentication_accounts:
       get:
         summary: List authentication accounts
@@ -140,6 +169,22 @@
         responses:
           "200":
             description: ""
+    /repositories:
+      get:
+        summary: List user repositories
+        operationId: getRepositories
+        responses:
+          "200":
+            description: ""
+    /repositories/{id}/sync:
+      post:
+        summary: Load updated and new service profiles from repository
+        operationId: syncRepository
+        parameters:
+          - name: id
+            in: path
+            type: string
+            required: true
   definitions:
     InstructionSet:
       type: object
